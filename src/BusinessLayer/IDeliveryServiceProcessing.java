@@ -7,7 +7,7 @@ public interface IDeliveryServiceProcessing {
     void manageProducts(BaseProduct bp);
     void addProduct(BaseProduct bp);
     void deleteProduct(int id);
-    //public void generateReports();
+    void generateReports(int intervalMin , int intervalMax, int prodMore, int clientsNb , int highValue , int day);
 
     void clientCreateNewOrder(List<MenuItem> productsList ,int clientId,int totalPrice);
     List<MenuItem> searchingProducts(String title ,

@@ -5,14 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class AdminView extends JFrame{
-    private JTextField id = new JTextField();
-    private JTextField title = new JTextField();
+    private JTextField id     = new JTextField();
+    private JTextField title  = new JTextField();
     private JTextField rating = new JTextField();
     private JTextField calories = new JTextField();
-    private JTextField protein = new JTextField();
-    private JTextField fat = new JTextField();
-    private JTextField sodium = new JTextField();
-    private JTextField price = new JTextField();
+    private JTextField protein  = new JTextField();
+    private JTextField fat      = new JTextField();
+    private JTextField sodium   = new JTextField();
+    private JTextField price    = new JTextField();
 
     private JButton importProductsBtn = new JButton("Import Products");
     private JButton manageProductsBtn = new JButton("Manage Products");
@@ -26,7 +26,6 @@ public class AdminView extends JFrame{
     public AdminView(){
 
         this.setTitle("Admin Frame");
-        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(550,700);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -80,11 +79,6 @@ public class AdminView extends JFrame{
         idPanel.setBounds(0,350,200,50);
         idPanel.add(new JLabel("    Id:"));
         idPanel.add(id);
-
-        //JPanel viewPPanel = new JPanel();
-        //viewPPanel.setBounds(0,300,200,50);
-        //viewPPanel.add(viewProductsBtn);
-
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBounds(0,400,300,200);

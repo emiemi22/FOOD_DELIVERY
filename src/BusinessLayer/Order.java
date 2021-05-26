@@ -78,4 +78,8 @@ public class Order {
                 ", orderDate=" + "Day:" + orderDate[0] + " h:" + orderDate[1] + " min:" + orderDate[2] +
                 '}';
     }
+
+    public static void setCounterIDorder(int counterIDorder) {
+        Order.counterIDorder = counterIDorder;
+    }
 }

@@ -9,4 +9,6 @@ public interface MenuItem {
      int getFat() ;
      int getSodium();
      int getPrice() ;
+     int getTimeSelected();
+     void incrementTimeSelected();
 }

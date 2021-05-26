@@ -19,6 +19,7 @@ public class ClientController {
     private int currentTotal =0 ;
     private List<MenuItem> productList = new ArrayList<>();
     public ClientController(DeliveryService deliveryService, int clientID) {
+        System.out.println("Current ID" + clientID);
         clientView = new ClientView();
         clientId = clientID ;
         this.deliveryService = deliveryService ;
@@ -94,6 +95,7 @@ public class ClientController {
         public void actionPerformed(ActionEvent actionEvent) {
             System.out.println("create new order client");
             deliveryService.clientCreateNewOrder(productList,clientId,currentTotal);
+            productList.clear();
             currentTotal = 0;
         }
     }
@@ -102,7 +104,8 @@ public class ClientController {
         public void actionPerformed(ActionEvent actionEvent) {
             System.out.println("add product client");
             int id = Integer.parseInt(clientView.getIdProductText());
-            BaseProduct newBp = deliveryService.getProductById(id);
+            MenuItem newBp = deliveryService.getItemById(id);
+            deliveryService.incremenetSelectedItem(id); /// increment the product with ID ul dat
             currentTotal+=newBp.getPrice();
             clientView.setPriceText(String.valueOf(currentTotal));
             System.out.println("Added Item to list:" + newBp.toString());

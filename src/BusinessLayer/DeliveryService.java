@@ -10,12 +10,22 @@ import java.util.stream.Collectors;
 
 /// CONTRACT method
 public class DeliveryService implements IDeliveryServiceProcessing{
+
     private List<MenuItem> menuItems = new ArrayList<>();
-    private static int currentID = 0;
-    private static int currentItemToBeDeleted = 0;
     private Set<String> checkDuplicates = new HashSet<>();
     private Map<Order,List<MenuItem>>productsMap = new HashMap<>();
+    private Login login ;
 
+    private static int currentID = 0;
+    private static int currentItemToBeDeleted = 0;
+    private List<Client> clients = new ArrayList<>();
+    public DeliveryService(){
+        clients.add(new Client("user" , "asd" , 2));
+        clients.add(new Client("user2" , "asd" , 3));
+        login= new Login();
+        login.addListClientToMap(clients);
+        clients = login.getClientsList();
+    }
     @Override
     public void importProducts() {
         List<BaseProduct> baseProducts = new ArrayList<>();
@@ -29,18 +39,18 @@ public class DeliveryService implements IDeliveryServiceProcessing{
         System.out.println("The csv was imported successfully");
         menuItems.forEach(System.out::println);
     }
-
     @Override
     public void manageProducts(BaseProduct bp) {
         int index = bp.getId();
         menuItems.set(index, bp);
     }
-
     public void addProduct(BaseProduct baseProduct){
         menuItems.add(baseProduct);
         currentID++;
     }
-
+    public MenuItem getItemById(int id){
+        return  menuItems.get(id);
+    }
     public BaseProduct getProductById(int id){
         return (BaseProduct) menuItems.get(id);
     }
@@ -51,10 +61,31 @@ public class DeliveryService implements IDeliveryServiceProcessing{
     }
 
     @Override
+    public void generateReports(int intervalMin , int intervalMax, int prodMore, int clientsNb , int highValue , int day) {
+        List<MenuItem> productsOrdered = menuItems.stream().filter(product -> product.getTimeSelected() >= prodMore).collect(Collectors.toList());
+        System.out.println("Products ordered more than " +prodMore +" time");
+        productsOrdered.forEach(System.out::println);
+        Map<Order,List<MenuItem>> result = productsMap.entrySet().stream()
+                .filter(map -> map.getKey().getHour()>= intervalMin)
+                .filter(map -> map.getKey().getHour() <= intervalMax)
+                .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+        List<Order> listResult = new ArrayList<>();
+        for(Order i : result.keySet())
+            listResult.add(i);
+
+        System.out.println("Time interval of the orders");
+        listResult.forEach(System.out::println);
+    }
+
+    public void incremenetSelectedItem(int id){
+        menuItems.get(id).incrementTimeSelected();
+    }
+    @Override
     public void clientCreateNewOrder(List<MenuItem> productsList, int clientId, int totalPrice)  {
         /// Create an order
         Calendar date = Calendar.getInstance();
         Order newOrder = new Order(1,clientId,date);
+        clients.get(clientId).incremenetSetOrderPlaced(); // incrementing for client i
         newOrder.setTotalPrice(totalPrice);
         /// check if it there
         if (productsMap.containsKey(newOrder)){
@@ -78,15 +109,13 @@ public class DeliveryService implements IDeliveryServiceProcessing{
             }
         }
     }
-
     @Override
-    public List<MenuItem> searchingProducts(String title, float rating, int calories, int protein, int fat, int sodium, int price)
-    {
+    public List<MenuItem> searchingProducts(String title, float rating, int calories, int protein, int fat, int sodium, int price) {
         List<MenuItem> filteredMenuList = new ArrayList<>();
         if (title.equals("")){
             filteredMenuList = menuItems.stream()
                     .filter(filtered ->  filtered.getRating()>=rating)
-                    .filter(filtered ->  filtered.getRating()<=calories)
+                    .filter(filtered ->  filtered.getCalories()<=calories)
                     .filter(filtered ->  filtered.getProtein()<=protein)
                     .filter(filtered ->  filtered.getFat()<=fat)
                     .filter(filtered ->  filtered.getSodium()<=sodium)
@@ -97,7 +126,7 @@ public class DeliveryService implements IDeliveryServiceProcessing{
             filteredMenuList = menuItems.stream()
                     .filter(filtered ->  filtered.getTitle().contains(title))
                     .filter(filtered ->  filtered.getRating()>=rating)
-                    .filter(filtered ->  filtered.getRating()<=calories)
+                    .filter(filtered ->  filtered.getCalories()<=calories)
                     .filter(filtered ->  filtered.getProtein()<=protein)
                     .filter(filtered ->  filtered.getFat()<=fat)
                     .filter(filtered ->  filtered.getSodium()<=sodium)
@@ -119,4 +148,23 @@ public class DeliveryService implements IDeliveryServiceProcessing{
     public List<MenuItem> getMenuItems() {
         return menuItems;
     }
+    public boolean checkIfUserExist(String username, String password, int type){
+        if (login.checkIfExistAccount(username,password , type)){
+            return true;
+        }
+        else
+            return false;
+    }
+    public int returnClientID(String username)
+    {
+        for (Client c : clients){
+            if (c.getUsername().equals(username))
+            {
+                return  c.getId();
+            }
+        }
+        return 0;
+    }
+
+
 }

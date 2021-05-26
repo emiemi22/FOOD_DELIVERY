@@ -14,7 +14,6 @@ public class MainController {
     private Login login ;
     public MainController(){
         mainView = new MainView();
-        login = new Login();
         deliveryService = new DeliveryService(); /// create a new delivery service
         mainView.addAdmButtonListener(new AdminListener());
         mainView.addClientButtonListener(new ClientListener());
@@ -27,8 +26,8 @@ public class MainController {
             String username , password;
             username = mainView.getUserText();
             password = mainView.getPasswordText();
-            if (login.checkIfExistAccount(username,password,1)){
-                new ClientController(deliveryService , login.returnClientID(username));
+            if (deliveryService.checkIfUserExist(username,password,1)){
+                new ClientController(deliveryService , deliveryService.returnClientID(username));
             }
             else{
                 new ErrorView();
@@ -42,7 +41,7 @@ public class MainController {
             username = mainView.getUserText();
             password = mainView.getPasswordText();
             System.out.println(username + " " + password);
-            if (login.checkIfExistAccount(username,password,0) == true)
+            if (deliveryService.checkIfUserExist(username,password,0) == true)
             {
                 new AdminController(deliveryService);
             }
@@ -57,7 +56,7 @@ public class MainController {
         public void actionPerformed(ActionEvent actionEvent) {String username , password;
             username = mainView.getUserText();
             password = mainView.getPasswordText();
-            if (login.checkIfExistAccount(username,password,3)){
+            if (deliveryService.checkIfUserExist(username,password,3)){
                 EmployeeView employeeView = new EmployeeView();
             }
             else{

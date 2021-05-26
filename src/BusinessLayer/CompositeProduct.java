@@ -7,7 +7,7 @@ public class CompositeProduct implements MenuItem{
 
     private  int id ;
     private List<BaseProduct> menuItems ;
-   private String title ;
+    private String title ;
 
     private float rating=0;
     private int calories=0;
@@ -15,6 +15,7 @@ public class CompositeProduct implements MenuItem{
     private int fat=0;
     private int sodium=0;
     private int price=0;
+    private int timeSelected = 0 ;
 
     public CompositeProduct(int id,List<BaseProduct> menuItems){
         this.id = id  ;
@@ -79,5 +80,14 @@ public class CompositeProduct implements MenuItem{
 
     public int getPrice() {
         return price;
+    }
+
+    @Override
+    public int getTimeSelected() {
+        return timeSelected;
+    }
+    @Override
+    public void incrementTimeSelected() {
+        this.timeSelected++;
     }
 }

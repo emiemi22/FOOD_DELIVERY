@@ -9,6 +9,7 @@ public class BaseProduct implements MenuItem{
     private int fat ;
     private int sodium ;
     private int price ;
+    private int timeSelected = 0 ;
 
     public BaseProduct(int id ,String title , float rating , int calories , int protein , int fat , int sodium , int price){
         this.id = id ;
@@ -32,6 +33,7 @@ public class BaseProduct implements MenuItem{
                 ", fat=" + fat +
                 ", sodium=" + sodium +
                 ", price=" + price +
+                ", times=" + timeSelected +
                 '}';
     }
 
@@ -65,6 +67,16 @@ public class BaseProduct implements MenuItem{
 
     public int getPrice() {
         return price;
+    }
+
+    @Override
+    public int getTimeSelected() {
+        return timeSelected;
+    }
+
+    @Override
+    public void incrementTimeSelected() {
+        this.timeSelected++;
     }
 
     @Override
