@@ -27,6 +27,8 @@ public class RaportController {
             day = Integer.parseInt(raportView.getIntervalDay());
             deliveryService.generateReports(intervalMin , intervalMax , productsOrdered , clientsOrdered , valueHigher , day);
 
+            System.out.println(intervalMin +" "+ intervalMax+ " "+ productsOrdered +" "+ clientsOrdered +" "+ valueHigher +" "+ day);
+
         }
     }
 }

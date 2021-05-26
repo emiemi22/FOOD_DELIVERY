@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.spi.AbstractResourceBundleProvider;
 
 public class ClientController {
     private ClientView clientView ;
@@ -94,7 +95,8 @@ public class ClientController {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             System.out.println("create new order client");
-            deliveryService.clientCreateNewOrder(productList,clientId,currentTotal);
+            ArrayList<MenuItem> result = new ArrayList<>(productList);
+            deliveryService.clientCreateNewOrder(result,clientId,currentTotal);
             productList.clear();
             currentTotal = 0;
         }
@@ -105,6 +107,7 @@ public class ClientController {
             System.out.println("add product client");
             int id = Integer.parseInt(clientView.getIdProductText());
             MenuItem newBp = deliveryService.getItemById(id);
+            System.out.println();
             deliveryService.incremenetSelectedItem(id); /// increment the product with ID ul dat
             currentTotal+=newBp.getPrice();
             clientView.setPriceText(String.valueOf(currentTotal));

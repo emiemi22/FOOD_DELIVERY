@@ -4,6 +4,7 @@ import DataLayer.CSVReader;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,20 +62,72 @@ public class DeliveryService implements IDeliveryServiceProcessing{
     }
 
     @Override
-    public void generateReports(int intervalMin , int intervalMax, int prodMore, int clientsNb , int highValue , int day) {
+    public void generateReports(int intervalMin , int intervalMax, int prodMore, int orderPlaced , int highValue , int day) {
+        //2
+        System.out.println("GENERATING REPORTS");
+        System.out.println(productsMap);
         List<MenuItem> productsOrdered = menuItems.stream().filter(product -> product.getTimeSelected() >= prodMore).collect(Collectors.toList());
         System.out.println("Products ordered more than " +prodMore +" time");
         productsOrdered.forEach(System.out::println);
+        //1
         Map<Order,List<MenuItem>> result = productsMap.entrySet().stream()
-                .filter(map -> map.getKey().getHour()>= intervalMin)
+                .filter(map -> map.getKey().getHour() >= intervalMin)
                 .filter(map -> map.getKey().getHour() <= intervalMax)
                 .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
-        List<Order> listResult = new ArrayList<>();
+        List<Order> result2 = new ArrayList<>();
         for(Order i : result.keySet())
-            listResult.add(i);
-
+            result2.add(i);
         System.out.println("Time interval of the orders");
-        listResult.forEach(System.out::println);
+        for(Order i : result2){
+            System.out.println(i.toString());
+        }
+
+        //3
+
+        List<Client> result3 = clients.stream()
+                .filter(client -> client.getOrderPlaced() >= orderPlaced)
+                .collect(Collectors.toList()); // select the clients that placed >= orders
+        //result3.forEach(System.out::println);
+        List<Client> finalRes = new ArrayList<>();
+        for(Client client : result3) {
+            Map<Order, List<MenuItem>> orderResult = productsMap.entrySet().stream()
+                    .filter(map -> map.getKey().getClientID() == client.getId()) /// for each client select
+                    .filter(map -> map.getKey().getTotalPrice() >= highValue) /// orders with >= value
+                    .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+            if(orderResult.size()>0)
+                finalRes.add(client);
+        }
+        System.out.println("Clients that ordered more than " + orderPlaced +" and order value >=" + highValue);
+        finalRes = finalRes.stream().distinct().collect(Collectors.toList());
+        finalRes.forEach(System.out::println);
+
+        //4
+
+        System.out.println();
+        System.out.print( "@@ ");
+        productsMap.entrySet().forEach(entry -> {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        });
+        //System.out.println(productsMap);
+        Map<Order,List<MenuItem>> result4 = productsMap.entrySet().stream()
+                .filter(map -> map.getKey().getDay() == day)
+                .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+        for(Order key : result.keySet()) {
+            System.out.println(key.toString() + " " );
+        }
+
+        List<MenuItem> finalRes4 = new ArrayList<>();
+        for(Order key : result.keySet()){
+            if (result4.get(key) == null)
+                System.out.println("NULLL");
+            finalRes4.addAll(result4.get(key));
+        }
+
+        //finalRes4 = finalRes4.stream().distinct().collect(Collectors.toList());
+        System.out.println("\nProducts ordered in day:" +day);
+        for (MenuItem itm : finalRes4){
+            System.out.println(itm.getTitle() + " " + itm.getTimeSelected());
+        }
     }
 
     public void incremenetSelectedItem(int id){
@@ -86,17 +139,18 @@ public class DeliveryService implements IDeliveryServiceProcessing{
         Calendar date = Calendar.getInstance();
         Order newOrder = new Order(1,clientId,date);
         clients.get(clientId).incremenetSetOrderPlaced(); // incrementing for client i
+        System.out.println("Client with id " +clientId + " ordered "+ clients.get(clientId).getOrderPlaced() +" times");
         newOrder.setTotalPrice(totalPrice);
         /// check if it there
         if (productsMap.containsKey(newOrder)){
             System.out.println("Cannot have the same id");
         }
         else{
-            System.out.print("New order added" + newOrder.toString() +" products:");
-            productsList.forEach(System.out::print);
-            productsMap.put(newOrder,productsList); // add in map the order and list
+            System.out.print("New order added " + newOrder.toString() +" products: ");
+            productsList.forEach(System.out::println);
+            productsMap.put(newOrder , productsList); // add in map the order(key) and menu List(value)
 
-            String text = "New order added " + newOrder.toString() +" products:\n";
+            String text = " New order added " + newOrder.toString() +" products:\n";
             for (MenuItem m : productsList){
                 text =text+ " " + m.toString() + "\n";
             }

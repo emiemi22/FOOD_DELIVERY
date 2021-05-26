@@ -41,7 +41,7 @@ public class RaportView extends JFrame {
 
         JPanel clientsOrderedPanel = new JPanel();
         clientsOrderedPanel.setBounds(0,150,450,50);
-        clientsOrderedPanel.add(new JLabel(" Products ordered more than"));
+        clientsOrderedPanel.add(new JLabel(" Clients who ordered more than"));
         clientsOrderedPanel.add(clientsOrdered);
         clientsOrderedPanel.add(new JLabel(" and value higher than"));
         clientsOrderedPanel.add(valueHigher);

@@ -53,11 +53,11 @@ public class Order {
 
     @Override
     public int hashCode(){
-        return this.orderID+this.clientID;
+        return this.orderID;
     }
 
-    @Override
-    public boolean equals(Object obj) {
+    //@Override
+    /*public boolean equals(Object obj) {
         Order o = (Order) obj;
         if (o.orderID == orderID
             && clientID == o.clientID
@@ -69,6 +69,7 @@ public class Order {
         else
             return false;
     }
+    */
 
     @Override
     public String toString() {

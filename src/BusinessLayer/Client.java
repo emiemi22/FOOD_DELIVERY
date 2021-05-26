@@ -34,4 +34,13 @@ public class Client {
     public String getUsername() {
         return username;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "username='" + username + '\'' +
+                ", orderPlaced=" + orderPlaced +
+                ", id=" + id +
+                '}';
+    }
 }
