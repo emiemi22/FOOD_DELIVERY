@@ -13,7 +13,7 @@ public class BillGenerator {
     private static Object obj = new Object();
 
     private BillGenerator() throws FileNotFoundException {
-        pw = new PrintWriter[10];
+        pw = new PrintWriter[40];
     }
 
     /**
@@ -44,11 +44,13 @@ public class BillGenerator {
         pw[index] = new PrintWriter(file);
         pw[index].println(textLine);
         index++;
-
     }
     /**
      * Close file.
      */
+    public void closeCurrentBill(){
+        pw[index-1].close();
+    }
     public void closeFile(){
         for(int i = 1 ; i < index; i++)
             pw[i].close();

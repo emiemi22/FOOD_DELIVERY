@@ -3,6 +3,7 @@ package BusinessLayer;
 import DataLayer.CSVReader;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,7 +51,7 @@ public class DeliveryService implements IDeliveryServiceProcessing{
     }
 
     @Override
-    public void clientCreateNewOrder(List<MenuItem> productsList, int clientId, int totalPrice) {
+    public void clientCreateNewOrder(List<MenuItem> productsList, int clientId, int totalPrice)  {
         /// Create an order
         Calendar date = Calendar.getInstance();
         Order newOrder = new Order(1,clientId,date);
@@ -62,7 +63,19 @@ public class DeliveryService implements IDeliveryServiceProcessing{
         else{
             System.out.print("New order added" + newOrder.toString() +" products:");
             productsList.forEach(System.out::print);
-            productsMap.put(newOrder,productsList);
+            productsMap.put(newOrder,productsList); // add in map the order and list
+
+            String text = "New order added " + newOrder.toString() +" products:\n";
+            for (MenuItem m : productsList){
+                text =text+ " " + m.toString() + "\n";
+            }
+            text+= "Total:" + totalPrice+"\n";
+            try {
+                BillGenerator.getInstance().writeToFile(text);
+                BillGenerator.getInstance().closeCurrentBill();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
