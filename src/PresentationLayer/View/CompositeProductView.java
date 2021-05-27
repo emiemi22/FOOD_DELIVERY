@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Composite product view.
+ */
 public class CompositeProductView extends JFrame {
 
     private JButton addButton = new JButton("Add Product") ;
@@ -11,6 +14,9 @@ public class CompositeProductView extends JFrame {
     private JTextField userText = new JTextField();
     private JTextField nameText = new JTextField();
 
+    /**
+     * Instantiates a new Composite product view.
+     */
     public CompositeProductView(){
         this.setTitle("Composite Product ");
         this.setSize(450,450);
@@ -44,18 +50,39 @@ public class CompositeProductView extends JFrame {
         this.setContentPane(allPanels);
 
     }
+
+    /**
+     * Gets text.
+     *
+     * @return the text
+     */
     public String getnameText() {
         return nameText.getText();
     }
 
+    /**
+     * Gets user txt.
+     *
+     * @return the user txt
+     */
     public String getUserTxt() {
         return userText.getText();
     }
 
+    /**
+     * Add btn.
+     *
+     * @param act the act
+     */
     public void addBtn(ActionListener act){
         addButton.addActionListener(act);
     }
 
+    /**
+     * Add done btn.
+     *
+     * @param act the act
+     */
     public void addDoneBtn(ActionListener act){
         doneButton.addActionListener(act);
     }

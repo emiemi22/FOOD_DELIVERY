@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The type Login.
+ */
 public class Login {
     private HashMap<String , String> adminMap = new HashMap<>();
     private HashMap<String , String> clientMap = new HashMap<>();
@@ -13,6 +16,10 @@ public class Login {
     private List<Administrator> adminList ;
     private List<Employee> employeeList ;
     private static Integer currentId = 0 ;
+
+    /**
+     * Instantiates a new Login.
+     */
     public Login(){
         clientsList = new ArrayList<>();
         adminMap.put("a","ab");
@@ -26,9 +33,16 @@ public class Login {
         clientsList.add(client1);
         clientMap.put("ac","ac");
         currentId++;
-
         employeeMap.put("c","c");
     }
+
+    /**
+     * Add new person.
+     *
+     * @param userName the user name
+     * @param password the password
+     * @param type     the type
+     */
     public void addNewPerson(String userName, String password, int type){
         if (type == 0){
             adminMap.put(userName , password);
@@ -48,8 +62,13 @@ public class Login {
             employeeMap.put(userName,password);
         }
     }
-    public void addListClientToMap(List<Client> listClients)
-    {
+
+    /**
+     * Add list client to map.
+     *
+     * @param listClients the list clients
+     */
+    public void addListClientToMap(List<Client> listClients) {
         for(Client c : listClients){
             clientMap.put(c.getUsername(),c.getPassword());
             System.out.println("adding" + c.getUsername() + " "+ c.getPassword() );
@@ -58,6 +77,15 @@ public class Login {
         }
         //Login.setCurrentId(currentId+1);
     }
+
+    /**
+     * Check if exist account boolean.
+     *
+     * @param username the username
+     * @param password the password
+     * @param type     the type
+     * @return the boolean
+     */
     public boolean checkIfExistAccount(String username, String password , int type){
         if (type == 0){
             if (adminMap.containsKey(username)){
@@ -91,10 +119,20 @@ public class Login {
         }
     }
 
+    /**
+     * Gets clients list.
+     *
+     * @return the clients list
+     */
     public List<Client> getClientsList() {
         return clientsList;
     }
 
+    /**
+     * Sets current id.
+     *
+     * @param currentId the current id
+     */
     public static void setCurrentId(Integer currentId) {
         Login.currentId = currentId;
     }

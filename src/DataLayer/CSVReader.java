@@ -12,16 +12,30 @@ import java.util.stream.Collectors;
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toCollection;
+
+/**
+ * The type Csv reader.
+ */
 public class CSVReader {
     private final String PATH = "/Users/emili/Desktop/__FACULTATE___/AN 2 Sem 2/TP/Tema 4/products.csv";
     private List<BaseProduct> productsList ;
     private Set<String> checkDuplicates ;
     private int id = 0;
+
+    /**
+     * Instantiates a new Csv reader.
+     *
+     * @param productsList    the products list
+     * @param checkDuplicates the check duplicates
+     */
     public CSVReader(List<BaseProduct> productsList , Set<String> checkDuplicates){
         this.productsList = productsList;
         this.checkDuplicates = checkDuplicates ;
     }
 
+    /**
+     * Read from csv.
+     */
     public void readFromCSV()
     {
         List<String> lines  ;
@@ -53,18 +67,38 @@ public class CSVReader {
         productsList.forEach(System.out::println);
     }
 
+    /**
+     * Gets products list.
+     *
+     * @return the products list
+     */
     public List<BaseProduct> getProductsList() {
         return productsList;
     }
 
+    /**
+     * Sets products list.
+     *
+     * @param productsList the products list
+     */
     public void setProductsList(List<BaseProduct> productsList) {
         this.productsList = productsList;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }

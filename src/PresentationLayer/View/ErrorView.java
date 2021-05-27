@@ -3,7 +3,13 @@ package PresentationLayer.View;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Error view.
+ */
 public class ErrorView extends JFrame {
+    /**
+     * Instantiates a new Error view.
+     */
     public ErrorView(){
         this.setTitle("Login Error");
         this.setSize(200,200);

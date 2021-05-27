@@ -9,7 +9,9 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/// CONTRACT method
+/**
+ * The type Delivery service.
+ */
 public class DeliveryService implements IDeliveryServiceProcessing{
 
     private List<MenuItem> menuItems = new ArrayList<>();
@@ -20,6 +22,10 @@ public class DeliveryService implements IDeliveryServiceProcessing{
     private static int currentID = 0;
     private static int currentItemToBeDeleted = 0;
     private List<Client> clients = new ArrayList<>();
+
+    /**
+     * Instantiates a new Delivery service.
+     */
     public DeliveryService(){
         clients.add(new Client("user" , "asd" , 2));
         clients.add(new Client("user2" , "asd" , 3));
@@ -49,9 +55,23 @@ public class DeliveryService implements IDeliveryServiceProcessing{
         menuItems.add(baseProduct);
         currentID++;
     }
+
+    /**
+     * Get item by id menu item.
+     *
+     * @param id the id
+     * @return the menu item
+     */
     public MenuItem getItemById(int id){
         return  menuItems.get(id);
     }
+
+    /**
+     * Get product by id base product.
+     *
+     * @param id the id
+     * @return the base product
+     */
     public BaseProduct getProductById(int id){
         return (BaseProduct) menuItems.get(id);
     }
@@ -62,13 +82,19 @@ public class DeliveryService implements IDeliveryServiceProcessing{
     }
 
     @Override
-    public void generateReports(int intervalMin , int intervalMax, int prodMore, int orderPlaced , int highValue , int day) {
+    public void generateReports(int intervalMin , int intervalMax, int prodMore, int orderPlaced , int highValue , int day) throws FileNotFoundException {
         //2
         System.out.println("GENERATING REPORTS");
+        ReportGenerator.getInstance().writeToFile("REPORTS");
         System.out.println(productsMap);
         List<MenuItem> productsOrdered = menuItems.stream().filter(product -> product.getTimeSelected() >= prodMore).collect(Collectors.toList());
         System.out.println("Products ordered more than " +prodMore +" time");
+        ReportGenerator.getInstance().writeToFile("Products ordered more than " +prodMore +" time");
         productsOrdered.forEach(System.out::println);
+        for (MenuItem itm : productsOrdered){
+            ReportGenerator.getInstance().writeToFile(itm.toString());
+        }
+
         //1
         Map<Order,List<MenuItem>> result = productsMap.entrySet().stream()
                 .filter(map -> map.getKey().getHour() >= intervalMin)
@@ -78,12 +104,12 @@ public class DeliveryService implements IDeliveryServiceProcessing{
         for(Order i : result.keySet())
             result2.add(i);
         System.out.println("Time interval of the orders");
+        ReportGenerator.getInstance().writeToFile("Time interval of the orders");
         for(Order i : result2){
             System.out.println(i.toString());
+            ReportGenerator.getInstance().writeToFile(i.toString());
         }
-
         //3
-
         List<Client> result3 = clients.stream()
                 .filter(client -> client.getOrderPlaced() >= orderPlaced)
                 .collect(Collectors.toList()); // select the clients that placed >= orders
@@ -98,9 +124,12 @@ public class DeliveryService implements IDeliveryServiceProcessing{
                 finalRes.add(client);
         }
         System.out.println("Clients that ordered more than " + orderPlaced +" and order value >=" + highValue);
+        ReportGenerator.getInstance().writeToFile("Clients that ordered more than " + orderPlaced +" and order value >=" + highValue);
         finalRes = finalRes.stream().distinct().collect(Collectors.toList());
         finalRes.forEach(System.out::println);
-
+        for(Client i :finalRes){
+            ReportGenerator.getInstance().writeToFile(i.toString());
+        }
         //4
 
         System.out.println();
@@ -115,21 +144,25 @@ public class DeliveryService implements IDeliveryServiceProcessing{
         for(Order key : result.keySet()) {
             System.out.println(key.toString() + " " );
         }
-
         List<MenuItem> finalRes4 = new ArrayList<>();
         for(Order key : result.keySet()){
-            if (result4.get(key) == null)
-                System.out.println("NULLL");
             finalRes4.addAll(result4.get(key));
         }
-
         //finalRes4 = finalRes4.stream().distinct().collect(Collectors.toList());
         System.out.println("\nProducts ordered in day:" +day);
+        ReportGenerator.getInstance().writeToFile("\nProducts ordered in day:" +day);
         for (MenuItem itm : finalRes4){
             System.out.println(itm.getTitle() + " " + itm.getTimeSelected());
+            ReportGenerator.getInstance().writeToFile(itm.getTitle() + " " + itm.getTimeSelected());
         }
+        ReportGenerator.getInstance().closeFile();
     }
 
+    /**
+     * Incremenet selected item.
+     *
+     * @param id the id
+     */
     public void incremenetSelectedItem(int id){
         menuItems.get(id).incrementTimeSelected();
     }
@@ -190,18 +223,49 @@ public class DeliveryService implements IDeliveryServiceProcessing{
         return  filteredMenuList;
 
     }
+
+    /**
+     * View current products.
+     */
     public void viewCurrentProducts(){
         menuItems.forEach(System.out::println);
     }
+
+    /**
+     * Gets current id.
+     *
+     * @return the current id
+     */
     public static int getCurrentID() {
         return currentID;
     }
+
+    /**
+     * Sets current id.
+     *
+     * @param currentID the current id
+     */
     public static void setCurrentID(int currentID) {
         DeliveryService.currentID = currentID;
     }
+
+    /**
+     * Gets menu items.
+     *
+     * @return the menu items
+     */
     public List<MenuItem> getMenuItems() {
         return menuItems;
     }
+
+    /**
+     * Check if user exist boolean.
+     *
+     * @param username the username
+     * @param password the password
+     * @param type     the type
+     * @return the boolean
+     */
     public boolean checkIfUserExist(String username, String password, int type){
         if (login.checkIfExistAccount(username,password , type)){
             return true;
@@ -209,8 +273,14 @@ public class DeliveryService implements IDeliveryServiceProcessing{
         else
             return false;
     }
-    public int returnClientID(String username)
-    {
+
+    /**
+     * Return client id int.
+     *
+     * @param username the username
+     * @return the int
+     */
+    public int returnClientID(String username) {
         for (Client c : clients){
             if (c.getUsername().equals(username))
             {
@@ -220,5 +290,15 @@ public class DeliveryService implements IDeliveryServiceProcessing{
         return 0;
     }
 
+    /**
+     * Add new person.
+     *
+     * @param userName the user name
+     * @param password the password
+     * @param type     the type
+     */
+    public void addNewPerson(String userName, String password, int type){
+        login.addNewPerson(userName,password,type);
+    }
 
 }

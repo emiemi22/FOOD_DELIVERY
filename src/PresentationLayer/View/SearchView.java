@@ -9,8 +9,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The type Search view.
+ */
 public class SearchView extends JFrame {
 
+    /**
+     * Instantiates a new Search view.
+     *
+     * @param resultList the result list
+     */
     public SearchView(List<MenuItem> resultList){
         List<MenuItem> baseProductList = resultList ;
         this.setTitle("List of searched products");

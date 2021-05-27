@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Client view.
+ */
 public class ClientView extends JFrame {
 
     private JButton searchProductsBtn = new JButton("   Search   ");
@@ -21,10 +24,9 @@ public class ClientView extends JFrame {
     private JTextField sodiumText    = new JTextField();
     private JTextField priceProductText    = new JTextField();
 
-
-
-
-
+    /**
+     * Instantiates a new Client view.
+     */
     public ClientView(){
         this.setTitle("Client Frame");
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,32 +64,32 @@ public class ClientView extends JFrame {
 
         JPanel ratingPanel = new JPanel();
         ratingPanel.setBounds(50,250,250,50);
-        ratingPanel.add(new JLabel("  rating"));
+        ratingPanel.add(new JLabel("  >= rating"));
         ratingPanel.add(ratingText);
 
         JPanel caloriesPanel = new JPanel();
         caloriesPanel.setBounds(50,300,250,50);
-        caloriesPanel.add(new JLabel("calories"));
+        caloriesPanel.add(new JLabel(" <= calories"));
         caloriesPanel.add(caloriesText);
 
         JPanel proteinPanel = new JPanel();
         proteinPanel.setBounds(50,350,250,50);
-        proteinPanel.add(new JLabel(" protein"));
+        proteinPanel.add(new JLabel(" <= protein"));
         proteinPanel.add(proteinText);
 
         JPanel fatPanel = new JPanel();
         fatPanel.setBounds(50,400,250,50);
-        fatPanel.add(new JLabel("     fat  "));
+        fatPanel.add(new JLabel("    <= fat  "));
         fatPanel.add(fatText);
 
         JPanel sodiumPanel = new JPanel();
         sodiumPanel.setBounds(50,450,250,50);
-        sodiumPanel.add(new JLabel("  sodium"));
+        sodiumPanel.add(new JLabel(" <= sodium"));
         sodiumPanel.add(sodiumText);
 
         JPanel priceProductPanel = new JPanel();
         priceProductPanel.setBounds(50,500,250,50);
-        priceProductPanel.add(new JLabel("   price  "));
+        priceProductPanel.add(new JLabel("  <= price  "));
         priceProductPanel.add(priceProductText);
 
 
@@ -114,54 +116,129 @@ public class ClientView extends JFrame {
         allPanels.setLayout(null);
         this.setContentPane(allPanels);
     }
+
+    /**
+     * Addsearch products btn.
+     *
+     * @param act the act
+     */
     public void addsearchProductsBtn(ActionListener act){
         searchProductsBtn.addActionListener(act);
     }
+
+    /**
+     * Add view product btn.
+     *
+     * @param act the act
+     */
     public void addViewProductBtn(ActionListener act){
         viewProductsBtn.addActionListener(act);
     }
+
+    /**
+     * Add add product btn.
+     *
+     * @param act the act
+     */
     public void addAddProductBtn(ActionListener act){
         addProductsBtn.addActionListener(act);
     }
+
+    /**
+     * Add create order btn.
+     *
+     * @param act the act
+     */
     public void addCreateOrderBtn(ActionListener act){
         createNewOrderBtn.addActionListener(act);
     }
+
+    /**
+     * Gets price text.
+     *
+     * @return the price text
+     */
     public String getPriceText() {
         return priceText.getText();
     }
 
+    /**
+     * Sets price text.
+     *
+     * @param priceText the price text
+     */
     public void setPriceText(String priceText) {
         this.priceText.setText(priceText);
     }
 
+    /**
+     * Gets id product text.
+     *
+     * @return the id product text
+     */
     public String getIdProductText() {
         return idProductText.getText();
     }
 
+    /**
+     * Gets title text.
+     *
+     * @return the title text
+     */
     public String getTitleText() {
         return titleText.getText();
     }
 
+    /**
+     * Gets rating text.
+     *
+     * @return the rating text
+     */
     public String getRatingText() {
         return ratingText.getText();
     }
 
+    /**
+     * Gets calories text.
+     *
+     * @return the calories text
+     */
     public String getCaloriesText() {
         return caloriesText.getText();
     }
 
+    /**
+     * Gets protein text.
+     *
+     * @return the protein text
+     */
     public String getProteinText() {
         return proteinText.getText();
     }
 
+    /**
+     * Gets fat text.
+     *
+     * @return the fat text
+     */
     public String getFatText() {
         return fatText.getText();
     }
 
+    /**
+     * Gets sodium text.
+     *
+     * @return the sodium text
+     */
     public String getSodiumText() {
         return sodiumText.getText();
     }
 
+    /**
+     * Gets price product text.
+     *
+     * @return the price product text
+     */
     public String getPriceProductText() {
         return priceProductText.getText();
     }

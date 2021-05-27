@@ -3,6 +3,9 @@ package BusinessLayer;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The type Composite product.
+ */
 public class CompositeProduct implements MenuItem{
 
     private  int id ;
@@ -17,18 +20,41 @@ public class CompositeProduct implements MenuItem{
     private int price=0;
     private int timeSelected = 0 ;
 
+    /**
+     * Instantiates a new Composite product.
+     *
+     * @param id        the id
+     * @param menuItems the menu items
+     */
     public CompositeProduct(int id,List<BaseProduct> menuItems){
         this.id = id  ;
         this.menuItems = menuItems;
     }
 
+    /**
+     * Add composite list.
+     *
+     * @param menuItem the menu item
+     */
     public void addCompositeList(BaseProduct menuItem){
         menuItems.add(menuItem);
     }
+
+    /**
+     * Remove composite.
+     *
+     * @param menuItem the menu item
+     */
     public void removeComposite(BaseProduct menuItem){
         menuItems.remove(menuItem);
     }
 
+    /**
+     * Create composite product base product.
+     *
+     * @param name the name
+     * @return the base product
+     */
     public BaseProduct createCompositeProduct(String name){
         title = name;
         int id = this.id;

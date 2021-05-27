@@ -9,10 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.prefs.BackingStoreException;
 
+/**
+ * The type Admin controller.
+ */
 public class AdminController {
     private AdminView adminView;
     private DeliveryService deliveryService ;
 
+    /**
+     * Instantiates a new Admin controller.
+     *
+     * @param deliveryService the delivery service
+     */
     public AdminController(DeliveryService deliveryService){
         adminView = new AdminView();
         this.deliveryService = deliveryService;
@@ -24,12 +32,20 @@ public class AdminController {
         adminView.addmanageProductBtn(new ManageProductListener());
         adminView.addViewPBtn(new ViewProductsListener());
     }
+
+    /**
+     * The type View products listener.
+     */
     class ViewProductsListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             new TableView(deliveryService);
         }
     }
+
+    /**
+     * The type Import listener.
+     */
     class ImportListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -37,6 +53,10 @@ public class AdminController {
             deliveryService.importProducts();
         }
     }
+
+    /**
+     * The type Add product listener.
+     */
     class AddProductListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -54,6 +74,10 @@ public class AdminController {
             System.out.println("Added new product" + " " + newBaseProduct.toString());
         }
     }
+
+    /**
+     * The type Manage product listener.
+     */
     class ManageProductListener implements  ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -71,6 +95,10 @@ public class AdminController {
             deliveryService.manageProducts(newBaseProduct);
         }
     }
+
+    /**
+     * The type Delete product listener.
+     */
     class DeleteProductListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -80,6 +108,10 @@ public class AdminController {
             //deliveryService.viewCurrentProducts();
         }
     }
+
+    /**
+     * The type Create compose products.
+     */
     class CreateComposeProducts implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -87,6 +119,10 @@ public class AdminController {
             new CompositeController(deliveryService);
         }
     }
+
+    /**
+     * The type Generate rep.
+     */
     class GenerateRep implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {

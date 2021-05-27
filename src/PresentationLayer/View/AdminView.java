@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Admin view.
+ */
 public class AdminView extends JFrame{
     private JTextField id     = new JTextField();
     private JTextField title  = new JTextField();
@@ -23,6 +26,9 @@ public class AdminView extends JFrame{
     private JButton viewProductsBtn = new JButton("View Products");
 
 
+    /**
+     * Instantiates a new Admin view.
+     */
     public AdminView(){
 
         this.setTitle("Admin Frame");
@@ -111,54 +117,129 @@ public class AdminView extends JFrame{
         return title.getText();
     }
 
+    /**
+     * Gets rating.
+     *
+     * @return the rating
+     */
     public String getRating() {
         return rating.getText();
     }
 
+    /**
+     * Gets calories.
+     *
+     * @return the calories
+     */
     public String getCalories() {
         return calories.getText();
     }
 
+    /**
+     * Gets protein.
+     *
+     * @return the protein
+     */
     public String getProtein() {
         return protein.getText();
     }
 
+    /**
+     * Gets fat.
+     *
+     * @return the fat
+     */
     public String getFat() {
         return fat.getText();
     }
 
+    /**
+     * Gets sodium.
+     *
+     * @return the sodium
+     */
     public String getSodium() {
         return sodium.getText();
     }
 
+    /**
+     * Gets price.
+     *
+     * @return the price
+     */
     public String getPrice() {
         return price.getText();
     }
+
+    /**
+     * Gets .
+     *
+     * @return the
+     */
     public String getid() {
         return id.getText();
     }
 
 
+    /**
+     * Addimport products btn.
+     *
+     * @param act the act
+     */
     public void addimportProductsBtn(ActionListener act){
         importProductsBtn.addActionListener(act);
     }
+
+    /**
+     * Addadd products btn.
+     *
+     * @param act the act
+     */
     public void addaddProductsBtn(ActionListener act){
         addProductsBtn.addActionListener(act);
     }
 
+    /**
+     * Adddelete products btn.
+     *
+     * @param act the act
+     */
     public void adddeleteProductsBtn(ActionListener act){
         deleteProductsBtn.addActionListener(act);
     }
 
+    /**
+     * Addmanage product btn.
+     *
+     * @param act the act
+     */
     public void addmanageProductBtn(ActionListener act){
         manageProductsBtn.addActionListener(act);
     }
+
+    /**
+     * Addcreate compose products btn.
+     *
+     * @param act the act
+     */
     public void addcreateComposeProductsBtn(ActionListener act){
         createComposeProductsBtn.addActionListener(act);
     }
+
+    /**
+     * Generate rep btn.
+     *
+     * @param act the act
+     */
     public void generateRepBtn(ActionListener act){
         generateRepBtn.addActionListener(act);
     }
+
+    /**
+     * Add view p btn.
+     *
+     * @param act the act
+     */
     public void addViewPBtn(ActionListener act){
         viewProductsBtn.addActionListener(act);
     }

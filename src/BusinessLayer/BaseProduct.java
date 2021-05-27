@@ -1,5 +1,8 @@
 package BusinessLayer;
 
+/**
+ * The type Base product.
+ */
 public class BaseProduct implements MenuItem{
     private int id;
     private String title ;
@@ -11,6 +14,18 @@ public class BaseProduct implements MenuItem{
     private int price ;
     private int timeSelected = 0 ;
 
+    /**
+     * Instantiates a new Base product.
+     *
+     * @param id       the id
+     * @param title    the title
+     * @param rating   the rating
+     * @param calories the calories
+     * @param protein  the protein
+     * @param fat      the fat
+     * @param sodium   the sodium
+     * @param price    the price
+     */
     public BaseProduct(int id ,String title , float rating , int calories , int protein , int fat , int sodium , int price){
         this.id = id ;
         this.title = title ;
@@ -37,6 +52,11 @@ public class BaseProduct implements MenuItem{
                 '}';
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }

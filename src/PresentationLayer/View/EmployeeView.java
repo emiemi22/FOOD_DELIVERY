@@ -3,7 +3,13 @@ package PresentationLayer.View;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Employee view.
+ */
 public class EmployeeView extends JFrame {
+    /**
+     * Instantiates a new Employee view.
+     */
     public EmployeeView(){
         this.setTitle("Employee Frame");
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

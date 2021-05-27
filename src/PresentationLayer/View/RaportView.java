@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Raport view.
+ */
 public class RaportView extends JFrame {
 
     private JTextField intervalMin = new JTextField();
@@ -15,6 +18,9 @@ public class RaportView extends JFrame {
 
     private JButton generateRepBtn = new JButton("Generate Reports");
 
+    /**
+     * Instantiates a new Raport view.
+     */
     public RaportView(){
         this.setTitle("Admin Frame");
         this.setSize(550,500);
@@ -65,30 +71,65 @@ public class RaportView extends JFrame {
         this.setContentPane(allPanels);
     }
 
+    /**
+     * Gets interval min.
+     *
+     * @return the interval min
+     */
     public String getIntervalMin() {
         return intervalMin.getText();
     }
 
+    /**
+     * Gets interval max.
+     *
+     * @return the interval max
+     */
     public String getIntervalMax() {
         return intervalMax.getText();
     }
 
+    /**
+     * Gets products ordered more.
+     *
+     * @return the products ordered more
+     */
     public String getProductsOrderedMore() {
         return productsOrderedMore.getText();
     }
 
+    /**
+     * Gets clients ordered.
+     *
+     * @return the clients ordered
+     */
     public String getClientsOrdered() {
         return clientsOrdered.getText();
     }
 
+    /**
+     * Gets value higher.
+     *
+     * @return the value higher
+     */
     public String getValueHigher() {
         return valueHigher.getText();
     }
 
+    /**
+     * Gets interval day.
+     *
+     * @return the interval day
+     */
     public String getIntervalDay() {
         return intervalDay.getText();
     }
 
+    /**
+     * Generate rep btn.
+     *
+     * @param act the act
+     */
     public void generateRepBtn(ActionListener act){
         generateRepBtn.addActionListener(act);
     }

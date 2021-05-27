@@ -5,18 +5,18 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 /**
- * The type Bill generator.
+ * The type Report generator.
  */
-public class BillGenerator {
-
-    private PrintWriter[] pw ;
+public class ReportGenerator {
+    private PrintWriter pw ;
     private File file ;
     private static int index = 1 ;
-    private static BillGenerator instance ;
+    private static ReportGenerator instance ;
     private static Object obj = new Object();
 
-    private BillGenerator() throws FileNotFoundException {
-        pw = new PrintWriter[40];
+    private ReportGenerator() throws FileNotFoundException {
+        file = new File("raport.txt");
+        pw = new PrintWriter(file);
     }
 
     /**
@@ -25,11 +25,11 @@ public class BillGenerator {
      * @return the instance
      * @throws FileNotFoundException the file not found exception
      */
-    public static BillGenerator getInstance() throws FileNotFoundException {
+    public static ReportGenerator getInstance() throws FileNotFoundException {
         if (instance == null){
             synchronized (obj){
                 if (instance == null){
-                    instance = new BillGenerator();
+                    instance = new ReportGenerator();
                 }
             }
         }
@@ -43,25 +43,14 @@ public class BillGenerator {
      * @throws FileNotFoundException the file not found exception
      */
     public void writeToFile(String textLine) throws FileNotFoundException {
-        file = new File("bill"+index +".txt");
-        pw[index] = new PrintWriter(file);
-        pw[index].println(textLine);
+        pw.println(textLine);
         index++;
     }
 
     /**
      * Close file.
      */
-    public void closeCurrentBill(){
-        pw[index-1].close();
-    }
-
-    /**
-     * Close file.
-     */
     public void closeFile(){
-        for(int i = 1 ; i < index; i++)
-            pw[i].close();
+        pw.close();
     }
-    
 }

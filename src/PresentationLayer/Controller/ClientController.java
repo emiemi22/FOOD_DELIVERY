@@ -13,12 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.spi.AbstractResourceBundleProvider;
 
+/**
+ * The type Client controller.
+ */
 public class ClientController {
     private ClientView clientView ;
     private DeliveryService deliveryService ;
     private int clientId ;
     private int currentTotal =0 ;
     private List<MenuItem> productList = new ArrayList<>();
+
+    /**
+     * Instantiates a new Client controller.
+     *
+     * @param deliveryService the delivery service
+     * @param clientID        the client id
+     */
     public ClientController(DeliveryService deliveryService, int clientID) {
         System.out.println("Current ID" + clientID);
         clientView = new ClientView();
@@ -30,6 +40,9 @@ public class ClientController {
         clientView.addCreateOrderBtn(new CreateListener());
     }
 
+    /**
+     * The type Search product listener.
+     */
     class SearchProductListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -85,12 +98,20 @@ public class ClientController {
             new SearchView(resultList);
         }
     }
+
+    /**
+     * The type View product listener.
+     */
     class ViewProductListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             new TableView(deliveryService);
         }
     }
+
+    /**
+     * The type Create listener.
+     */
     class CreateListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -101,6 +122,10 @@ public class ClientController {
             currentTotal = 0;
         }
     }
+
+    /**
+     * The type Add product listener.
+     */
     class AddProductListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {

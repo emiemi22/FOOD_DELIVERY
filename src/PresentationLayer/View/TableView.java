@@ -9,8 +9,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The type Table view.
+ */
 public class TableView extends JFrame {
 
+    /**
+     * Instantiates a new Table view.
+     *
+     * @param ds the ds
+     */
     public TableView(DeliveryService ds){
         List<MenuItem> baseProductList = ds.getMenuItems();
         this.setTitle("List of products");
