@@ -2,9 +2,7 @@ package BusinessLayer;
 
 import DataLayer.CSVReader;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * The type Delivery service.
  */
-public class DeliveryService implements IDeliveryServiceProcessing{
+public class DeliveryService extends  Observable implements IDeliveryServiceProcessing {
 
     private List<MenuItem> menuItems = new ArrayList<>();
     private Set<String> checkDuplicates = new HashSet<>();
@@ -188,6 +186,8 @@ public class DeliveryService implements IDeliveryServiceProcessing{
                 text =text+ " " + m.toString() + "\n";
             }
             text+= "Total:" + totalPrice+"\n";
+            setChanged();
+            notifyObservers(text);
             try {
                 BillGenerator.getInstance().writeToFile(text);
                 BillGenerator.getInstance().closeCurrentBill();

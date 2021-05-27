@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 public class MainController {
     private MainView mainView ;
     private DeliveryService deliveryService ;
-    private Login login ;
 
     /**
      * Instantiates a new Main controller.
@@ -76,7 +75,10 @@ public class MainController {
             username = mainView.getUserText();
             password = mainView.getPasswordText();
             if (deliveryService.checkIfUserExist(username,password,3)){
-                EmployeeView employeeView = new EmployeeView();
+                EmployeeView emp = new EmployeeView();
+                emp.setFrameVisible(true);
+                EmployeeController employeeController = new EmployeeController();
+                deliveryService.addObserver(employeeController);
             }
             else{
                 new ErrorView();

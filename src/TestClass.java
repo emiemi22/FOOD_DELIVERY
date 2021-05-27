@@ -7,6 +7,7 @@ import DataLayer.CSVReader;
 import PresentationLayer.Controller.CompositeController;
 import PresentationLayer.View.ClientView;
 import PresentationLayer.View.CompositeProductView;
+import PresentationLayer.View.EmployeeView;
 import PresentationLayer.View.RaportView;
 
 import javax.swing.*;
@@ -69,6 +70,8 @@ public class TestClass {
         productsMap.entrySet().forEach(entry -> {
             System.out.println(entry.getKey() + "\n " + entry.getValue());
         });
+        new EmployeeView();
     }
+
 }
 

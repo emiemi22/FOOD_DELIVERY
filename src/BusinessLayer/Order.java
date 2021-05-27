@@ -114,7 +114,7 @@ public class Order {
     }
 
     //@Override
-    /*public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         Order o = (Order) obj;
         if (o.orderID == orderID
             && clientID == o.clientID
@@ -126,7 +126,6 @@ public class Order {
         else
             return false;
     }
-    */
 
     @Override
     public String toString() {
