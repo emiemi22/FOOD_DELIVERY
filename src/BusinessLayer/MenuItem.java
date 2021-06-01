@@ -1,9 +1,11 @@
 package BusinessLayer;
 
+import java.io.Serializable;
+
 /**
  * The interface Menu item.
  */
-public interface MenuItem {
+public interface MenuItem  {
     /**
      * Compute price int.
      *

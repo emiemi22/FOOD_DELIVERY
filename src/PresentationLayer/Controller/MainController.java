@@ -2,11 +2,15 @@ package PresentationLayer.Controller;
 
 import BusinessLayer.DeliveryService;
 import BusinessLayer.Login;
+import DataLayer.Serializator;
 import PresentationLayer.View.*;
 import com.sun.tools.javac.Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 /**
  * The type Main controller.
@@ -14,17 +18,29 @@ import java.awt.event.ActionListener;
 public class MainController {
     private MainView mainView ;
     private DeliveryService deliveryService ;
-
+    private Serializator serializator = new Serializator();
     /**
      * Instantiates a new Main controller.
      */
     public MainController(){
+
         mainView = new MainView();
-        deliveryService = new DeliveryService(); /// create a new delivery service
+        //deliveryService = new DeliveryService(); /// create a new delivery service
+        try {
+            deliveryService = serializator.deserialize("serialize.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mainView.addAdmButtonListener(new AdminListener());
         mainView.addClientButtonListener(new ClientListener());
         mainView.addEmployeeButtonListener(new EmployeeListener());
         mainView.addRegisterButtonListener(new RegisterListener());
+        mainView.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.out.println("  EXIT MAIN FRAME  ");
+                serializator.serialize(deliveryService,"serialize.txt");
+            }
+        });
     }
 
     /**
@@ -85,7 +101,6 @@ public class MainController {
             }
         }
     }
-
     /**
      * The type Register listener.
      */

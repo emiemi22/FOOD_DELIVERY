@@ -1,5 +1,6 @@
 package BusinessLayer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * The type Login.
  */
-public class Login {
+public class Login implements Serializable {
     private HashMap<String , String> adminMap = new HashMap<>();
     private HashMap<String , String> clientMap = new HashMap<>();
     private HashMap<String , String> employeeMap = new HashMap<>();
@@ -71,7 +72,7 @@ public class Login {
     public void addListClientToMap(List<Client> listClients) {
         for(Client c : listClients){
             clientMap.put(c.getUsername(),c.getPassword());
-            System.out.println("adding" + c.getUsername() + " "+ c.getPassword() );
+            System.out.println("adding " + c.getUsername() + " "+ c.getPassword() );
             clientsList.add(new Client(c.getUsername() , c.getPassword() , currentId));
             currentId++;
         }

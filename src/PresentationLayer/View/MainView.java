@@ -3,6 +3,8 @@ package PresentationLayer.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * The type Main view.
@@ -110,6 +112,8 @@ public class MainView extends JFrame{
      */
     public void addRegisterButtonListener(ActionListener adm){ registerButton.addActionListener(adm);
 
+    }
+    public void addExitButtonListener(ActionListener adm){
     }
 
 

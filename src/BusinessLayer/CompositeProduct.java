@@ -1,12 +1,13 @@
 package BusinessLayer;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * The type Composite product.
  */
-public class CompositeProduct implements MenuItem{
+public class CompositeProduct implements MenuItem , Serializable {
 
     private  int id ;
     private List<BaseProduct> menuItems ;

@@ -3,6 +3,7 @@ package BusinessLayer;
 import DataLayer.CSVReader;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,14 +11,15 @@ import java.util.stream.Collectors;
 /**
  * The type Delivery service.
  */
-public class DeliveryService extends  Observable implements IDeliveryServiceProcessing {
+public class DeliveryService extends  Observable implements IDeliveryServiceProcessing, Serializable {
 
     private List<MenuItem> menuItems = new ArrayList<>();
     private Set<String> checkDuplicates = new HashSet<>();
     private Map<Order,List<MenuItem>>productsMap = new HashMap<>();
     private Login login ;
 
-    private static int currentID = 0;
+    private int previousId ;
+    private static int currentID ;
     private static int currentItemToBeDeleted = 0;
     private List<Client> clients = new ArrayList<>();
 
@@ -25,11 +27,11 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
      * Instantiates a new Delivery service.
      */
     public DeliveryService(){
-        clients.add(new Client("user" , "asd" , 2));
-        clients.add(new Client("user2" , "asd" , 3));
+        System.out.println(currentID);
         login= new Login();
         login.addListClientToMap(clients);
         clients = login.getClientsList();
+        DeliveryService.setCurrentID(previousId);
     }
     @Override
     public void importProducts() {
@@ -131,7 +133,6 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
         //4
 
         System.out.println();
-        System.out.print( "@@ ");
         productsMap.entrySet().forEach(entry -> {
             System.out.println(entry.getKey() + " " + entry.getValue());
         });
@@ -146,7 +147,7 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
         for(Order key : result.keySet()){
             finalRes4.addAll(result4.get(key));
         }
-        //finalRes4 = finalRes4.stream().distinct().collect(Collectors.toList());
+        finalRes4 = finalRes4.stream().distinct().collect(Collectors.toList());
         System.out.println("\nProducts ordered in day:" +day);
         ReportGenerator.getInstance().writeToFile("\nProducts ordered in day:" +day);
         for (MenuItem itm : finalRes4){
@@ -300,5 +301,20 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
     public void addNewPerson(String userName, String password, int type){
         login.addNewPerson(userName,password,type);
     }
+    public DeliveryService getDeliveryService(){
+        return  this;
+    }
+    public void viewOrders(){
+        productsMap.entrySet().forEach(entry -> {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        });
+    }
 
+    public int getPreviousId() {
+        return previousId;
+    }
+
+    public void setPreviousId(int previousId) {
+        this.previousId = previousId;
+    }
 }

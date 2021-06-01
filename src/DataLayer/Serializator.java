@@ -23,16 +23,19 @@ public class Serializator {
      */
     public void serialize(DeliveryService deliveryService, String filename){
         try {
+
+            deliveryService.setPreviousId(DeliveryService.getCurrentID());
+
             FileOutputStream file = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(file);
             out.writeObject(deliveryService);
             out.close();
             file.close();
+            System.out.println(" Serialization - Delivery service saved !");
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -43,26 +46,35 @@ public class Serializator {
      * @throws IOException the io exception
      */
     public DeliveryService deserialize(String filename) throws IOException {
-        DeliveryService deliveryService  = new DeliveryService();
+        DeliveryService deliveryService  = null;
         try
         {
             FileInputStream file = new FileInputStream(filename);
             if(file.getChannel().size() != 0){
+                System.out.println("Reading from file a deliveryService");
                 ObjectInputStream in = new ObjectInputStream(file);
                 deliveryService = (DeliveryService)in.readObject();
+                DeliveryService.setCurrentID(deliveryService.getPreviousId());
                 in.close();
                 file.close();
+            }
+            else{
+                System.out.println("Creating new Delivery Service");
+                deliveryService = new DeliveryService();
+                deliveryService.setPreviousId(0);
+                DeliveryService.setCurrentID(deliveryService.getPreviousId());
             }
         }
         catch(IOException ex)
         {
-            System.out.println("IOException is caught");
+            System.out.println("IOException");
         }
 
         catch(ClassNotFoundException ex)
         {
-            System.out.println("ClassNotFoundException is caught");
+            System.out.println("ClassNotFoundException");
         }
+        System.out.println("Deserialization successfully");
         return deliveryService;
     }
 }

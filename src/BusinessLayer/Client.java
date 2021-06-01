@@ -1,9 +1,11 @@
 package BusinessLayer;
 
+import java.io.Serializable;
+
 /**
  * The type Client.
  */
-public class Client {
+public class Client implements Serializable {
     private String username ;
     private String password;
     private int orderPlaced = 0 ;
