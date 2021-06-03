@@ -1,12 +1,13 @@
 package BusinessLayer;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
 
 /**
  * The type Order.
  */
-public class Order {
+public class Order implements Serializable {
     private int orderID ;
     private int clientID ;
     private int[] orderDate = new int[3];

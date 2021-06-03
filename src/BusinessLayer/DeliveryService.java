@@ -40,20 +40,41 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
         csv.setId(currentID);
         csv.readFromCSV();
         currentID+=csv.getId();
+
         for (BaseProduct bp : csv.getProductsList()){
             menuItems.add(bp);
         }
+        /**
+         * @invariant assume that inputs from csv are managed by csvReader
+         */
+        assert wellFormedList();
         System.out.println("The csv was imported successfully");
         menuItems.forEach(System.out::println);
     }
     @Override
+    /**
+     * @param id the id
+     * @precondition check if the product has a valid id before managing
+     * @postcondition chck if the product fields are valid
+     */
     public void manageProducts(BaseProduct bp) {
         int index = bp.getId();
+        assert index<0;
         menuItems.set(index, bp);
+        assert wellFormedList();
     }
+
+    /**
+     * @precondition check if the product contains valid fields before adding
+     * @postcondition check if the product contains valid fields after adding
+     *
+     */
     public void addProduct(BaseProduct baseProduct){
+        assert baseProduct.getTitle().equals("");
+        assert baseProduct.getPrice()<0;
         menuItems.add(baseProduct);
         currentID++;
+        assert wellFormedList();
     }
 
     /**
@@ -75,15 +96,31 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
     public BaseProduct getProductById(int id){
         return (BaseProduct) menuItems.get(id);
     }
+
+    /**
+     * @param id the id
+     * @precondition check if the product has a valid id before deleting
+     * @postcondition
+     */
     public void deleteProduct(int id){
+        assert id<0;
         System.out.println(menuItems.get(id).toString());
         menuItems.remove(id-currentItemToBeDeleted);
         currentItemToBeDeleted++;
     }
-
     @Override
+    /**
+     * @precondition check if the inputs are valid before generating
+     * @postconditioncheck if the orders are valid after generating
+     */
     public void generateReports(int intervalMin , int intervalMax, int prodMore, int orderPlaced , int highValue , int day) throws FileNotFoundException {
         //2
+        assert intervalMax<0 ;
+        assert intervalMin<0 ;
+        assert day<0;
+        assert prodMore<0;
+        assert orderPlaced<0;
+
         System.out.println("GENERATING REPORTS");
         ReportGenerator.getInstance().writeToFile("REPORTS");
         System.out.println(productsMap);
@@ -155,6 +192,7 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
             ReportGenerator.getInstance().writeToFile(itm.getTitle() + " " + itm.getTimeSelected());
         }
         ReportGenerator.getInstance().closeFile();
+        assert wellFormedOrder();
     }
 
     /**
@@ -166,8 +204,14 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
         menuItems.get(id).incrementTimeSelected();
     }
     @Override
+    /**
+     * @precondition check if the inputs are valid before creating
+     * @postconditioncheck if the orders are valid after adding a new order
+     */
     public void clientCreateNewOrder(List<MenuItem> productsList, int clientId, int totalPrice)  {
         /// Create an order
+        assert  clientId<0 ;
+        assert totalPrice<0;
         Calendar date = Calendar.getInstance();
         Order newOrder = new Order(1,clientId,date);
         clients.get(clientId).incremenetSetOrderPlaced(); // incrementing for client i
@@ -195,6 +239,7 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+            assert wellFormedOrder();
         }
     }
     @Override
@@ -258,7 +303,6 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
     public List<MenuItem> getMenuItems() {
         return menuItems;
     }
-
     /**
      * Check if user exist boolean.
      *
@@ -274,7 +318,6 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
         else
             return false;
     }
-
     /**
      * Return client id int.
      *
@@ -290,7 +333,6 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
         }
         return 0;
     }
-
     /**
      * Add new person.
      *
@@ -301,20 +343,51 @@ public class DeliveryService extends  Observable implements IDeliveryServiceProc
     public void addNewPerson(String userName, String password, int type){
         login.addNewPerson(userName,password,type);
     }
+    /**
+     * Get delivery service delivery service.
+     *
+     * @return the delivery service
+     */
     public DeliveryService getDeliveryService(){
         return  this;
     }
+    /**
+     * View orders.
+     */
     public void viewOrders(){
         productsMap.entrySet().forEach(entry -> {
             System.out.println(entry.getKey() + " " + entry.getValue());
         });
     }
-
+    /**
+     * Gets previous id.
+     *
+     * @return the previous id
+     */
     public int getPreviousId() {
         return previousId;
     }
-
+    public  Boolean wellFormedList(){
+        for(MenuItem i : menuItems)
+            if(i.getPrice() < 0 || i.getCalories() <0 || i.getProtein() <0 || i.getSodium() <0 || i.getFat() < 0 || i.getRating() <0)
+                return false ;
+        return  true;
+    }
+    public Boolean wellFormedOrder(){
+        for(Order i : productsMap.keySet()){
+            if (i.getTotalPrice() < 0 || i.getHour()<0)
+                return false;
+        }
+        return true;
+    }
+    /**
+     * Sets previous id.
+     *
+     * @param previousId the previous id
+     */
     public void setPreviousId(int previousId) {
         this.previousId = previousId;
     }
+
+
 }
