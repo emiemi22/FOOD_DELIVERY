@@ -1,0 +1,5 @@
+ New order added Order{orderID=3, clientID=0, orderDate=Day:3 h:10 min:31} products:
+ BaseProduct{id=4 title='Smoked Caviar and Hummus on Pita Toasts ', rating=5.0, calories=23, protein=1, fat=2, sodium=79, price=79, times=1}
+ BaseProduct{id=5 title='Barbecued Shrimp ', rating=3.75, calories=23, protein=4, fat=0, sodium=71, price=71, times=1}
+Total:150
+

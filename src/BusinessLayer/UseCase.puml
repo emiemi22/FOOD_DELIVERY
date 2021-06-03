@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+
+User --> (Main Frame)
+(Main Frame)->(login)
+
+
+(Main Frame) --> (adminController)
+(Main Frame) --> (clientController)
+(Main Frame) --> (employeeController)
+
+(adminController) --> (DeliveryService)
+(clientController) -->(DeliveryService)
+(employeeController) --> (DeliveryService)
+
+@enduml

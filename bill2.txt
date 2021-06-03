@@ -1,0 +1,6 @@
+ New order added Order{orderID=2, clientID=0, orderDate=Day:3 h:10 min:37} products:
+ BaseProduct{id=24 title='Potato Samosa Tartlets ', rating=3.75, calories=25, protein=0, fat=1, sodium=82, price=82, times=2}
+ BaseProduct{id=434 title='Korean Steak Tartare ', rating=3.75, calories=65, protein=4, fat=4, sodium=56, price=56, times=2}
+ BaseProduct{id=434 title='Korean Steak Tartare ', rating=3.75, calories=65, protein=4, fat=4, sodium=56, price=56, times=2}
+Total:194
+

@@ -1,0 +1,3 @@
+ New order added Order{orderID=5, clientID=2, orderDate=Day:27 h:0 min:25} products:
+Total:0
+

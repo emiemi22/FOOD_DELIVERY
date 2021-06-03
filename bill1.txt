@@ -1,0 +1,7 @@
+ New order added Order{orderID=1, clientID=0, orderDate=Day:3 h:10 min:37} products:
+ BaseProduct{id=35 title='Simple Homemade Beef Stock ', rating=5.0, calories=27, protein=2, fat=2, sodium=57, price=57, times=3}
+ BaseProduct{id=35 title='Simple Homemade Beef Stock ', rating=5.0, calories=27, protein=2, fat=2, sodium=57, price=57, times=3}
+ BaseProduct{id=35 title='Simple Homemade Beef Stock ', rating=5.0, calories=27, protein=2, fat=2, sodium=57, price=57, times=3}
+ BaseProduct{id=24 title='Potato Samosa Tartlets ', rating=3.75, calories=25, protein=0, fat=1, sodium=82, price=82, times=1}
+Total:253
+
